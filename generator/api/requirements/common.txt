@@ -1,0 +1,6 @@
+flask
+pytest
+psycopg2-binary
+sqlalchemy
+requests
+click

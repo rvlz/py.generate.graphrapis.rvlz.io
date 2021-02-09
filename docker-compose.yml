@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  generator-api:
+    build:
+      context: ./generator/api
+      dockerfile: Dockerfile
+    depends_on:
+    - generator-db
+    environment:
+      FLASK_ENV: "development"
+      DB_URI: "postgresql://docker:docker@generator-db:5432/generator_api_dev"
+      TEST_DB_URI: "postgresql://docker:docker@generator-db:5432/generator_api_test"
+      API_HOST: generator-api
+      TEST_API_HOST: generator-test-api
+    ports:
+    - 5001:5000
+    volumes:
+    - ./generator/api:/code
+
+  generator-test-api:
+    build:
+      context: ./generator/api
+      dockerfile: Dockerfile
+    depends_on:
+    - generator-db
+    environment:
+      FLASK_ENV: "development"
+      DB_URI: "postgresql://docker:docker@generator-db:5432/generator_api_test"
+      API_HOST: generator-test-api
+    ports:
+    - 5002:5000
+    volumes:
+    - ./generator/api:/code
+
+  generator-db:
+    build:
+      context: ./generator/postgres
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+    volumes:
+    - generator-pg-data:/var/lib/postgresql/data
+
+volumes:
+  generator-pg-data:
