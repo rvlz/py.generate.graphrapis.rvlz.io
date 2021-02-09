@@ -1,1 +1,1 @@
-# Graphr APIS: Link Generation
+# Graphr APIs: Link Generation
