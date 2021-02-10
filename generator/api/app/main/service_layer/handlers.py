@@ -49,14 +49,16 @@ class BulkRegisterLinksHandler:
                 if website is None:
                     website = model.Website(domain=ln["domain"])
                     self.uow.websites.add(website)
-                website.links.append(
-                    model.Link(
-                        ref=ln["ref"],
-                        domain=ln["domain"],
-                        path=ln["path"],
-                        title=ln["title"],
-                        deleted=ln["deleted"],
-                    )
+                website.register(
+                    [
+                        model.Link(
+                            ref=ln["ref"],
+                            domain=ln["domain"],
+                            path=ln["path"],
+                            title=ln["title"],
+                            deleted=ln["deleted"],
+                        ),
+                    ]
                 )
             self.uow.commit()
 
