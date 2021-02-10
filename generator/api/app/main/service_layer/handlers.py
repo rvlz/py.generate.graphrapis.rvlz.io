@@ -12,13 +12,15 @@ class CreateLinkHandler:
             if website is None:
                 website = model.Website(domain=cmd.domain)
                 self.uow.websites.add(website)
-            website.links.append(
-                model.Link(
-                    ref=cmd.ref,
-                    domain=cmd.domain,
-                    path=cmd.path,
-                    title=cmd.title,
-                )
+            website.register(
+                [
+                    model.Link(
+                        ref=cmd.ref,
+                        domain=cmd.domain,
+                        path=cmd.path,
+                        title=cmd.title,
+                    ),
+                ]
             )
             self.uow.websites.add(website)
             self.uow.commit()
