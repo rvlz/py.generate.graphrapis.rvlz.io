@@ -45,6 +45,18 @@ link = Table(
 )
 
 
+link_view = Table(
+    "link_view",
+    metadata,
+    Column("ref", String(255)),
+    Column("domain", String(255)),
+    Column("path", Text),
+    Column("title", String(255)),
+    Column("deleted", Boolean),
+    Column("created_at", DateTime),
+)
+
+
 def start_mappers():
     link_mapper = mapper(model.Link, link)
     mapper(
