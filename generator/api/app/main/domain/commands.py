@@ -23,7 +23,7 @@ class RegisterLink(Command):
 
 
 @dataclass(frozen=True)
-class SoftDeleteLink(Command):
+class DeregisterLink(Command):
     ref: str
 
 

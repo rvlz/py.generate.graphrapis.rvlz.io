@@ -110,8 +110,8 @@ class TestRegisterLinks:
         assert bus.uow.committed
 
 
-class TestSoftDeleteLink:
-    def test_soft_delete_link(self):
+class TestDeregisterLink:
+    def test_deregister_link(self):
         bus = message_bus()
         bus.handle(
             commands.RegisterLink(
@@ -124,6 +124,6 @@ class TestSoftDeleteLink:
         link = bus.uow.websites.get("stackoverflow.com").find("ln")
         assert not link.deleted
         bus.uow.committed = False
-        bus.handle(commands.SoftDeleteLink(ref="ln"))
+        bus.handle(commands.DeregisterLink(ref="ln"))
         assert link.deleted
         assert bus.uow.committed

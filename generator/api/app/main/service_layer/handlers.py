@@ -26,11 +26,11 @@ class RegisterLinkHandler:
             self.uow.commit()
 
 
-class SoftDeleteLinkHandler:
+class DeregisterLinkHandler:
     def __init__(self, uow: unit_of_work.AbstractUnitOfWork):
         self.uow = uow
 
-    def __call__(self, cmd: commands.SoftDeleteLink):
+    def __call__(self, cmd: commands.DeregisterLink):
         with self.uow:
             website = self.uow.websites.get_by_linkref(cmd.ref)
             link = website.find(cmd.ref)
@@ -65,6 +65,6 @@ EVENT_HANDLERS = {}
 
 COMMAND_HANDLERS = {
     commands.RegisterLink: RegisterLinkHandler,
-    commands.SoftDeleteLink: SoftDeleteLinkHandler,
+    commands.DeregisterLink: DeregisterLinkHandler,
     commands.BulkCreateLinks: BulkCreateLinksHandler,
 }
