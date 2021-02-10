@@ -83,10 +83,10 @@ class TestRegisterLinks:
             bus.uow.websites.get("stackoverflow.com").find("ln1") is not None
         )
 
-    def test_bulk_create_links(self):
+    def test_bulk_register_links(self):
         bus = message_bus()
         bus.handle(
-            commands.BulkCreateLinks(
+            commands.BulkRegisterLinks(
                 links=[
                     {
                         "ref": "ln",

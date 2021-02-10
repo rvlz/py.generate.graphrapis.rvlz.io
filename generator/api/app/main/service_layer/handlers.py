@@ -38,11 +38,11 @@ class DeregisterLinkHandler:
             self.uow.commit()
 
 
-class BulkCreateLinksHandler:
+class BulkRegisterLinksHandler:
     def __init__(self, uow: unit_of_work.AbstractUnitOfWork):
         self.uow = uow
 
-    def __call__(self, cmd: commands.BulkCreateLinks):
+    def __call__(self, cmd: commands.BulkRegisterLinks):
         with self.uow:
             for ln in cmd.links:
                 website = self.uow.websites.get(domain=ln["domain"])
@@ -66,5 +66,5 @@ EVENT_HANDLERS = {}
 COMMAND_HANDLERS = {
     commands.RegisterLink: RegisterLinkHandler,
     commands.DeregisterLink: DeregisterLinkHandler,
-    commands.BulkCreateLinks: BulkCreateLinksHandler,
+    commands.BulkRegisterLinks: BulkRegisterLinksHandler,
 }

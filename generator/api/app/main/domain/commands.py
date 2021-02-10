@@ -28,5 +28,5 @@ class DeregisterLink(Command):
 
 
 @dataclass(frozen=True)
-class BulkCreateLinks(Command):
+class BulkRegisterLinks(Command):
     links: List[LinkType]
