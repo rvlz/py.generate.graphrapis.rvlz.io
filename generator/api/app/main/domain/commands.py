@@ -15,7 +15,7 @@ class Command:
 
 
 @dataclass(frozen=True)
-class CreateLink(Command):
+class RegisterLink(Command):
     ref: str
     domain: str
     path: str

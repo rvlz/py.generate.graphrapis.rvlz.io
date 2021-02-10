@@ -2,11 +2,11 @@ from app.main.service_layer import unit_of_work
 from app.main.domain import commands, model
 
 
-class CreateLinkHandler:
+class RegisterLinkHandler:
     def __init__(self, uow: unit_of_work.AbstractUnitOfWork):
         self.uow = uow
 
-    def __call__(self, cmd: commands.CreateLink):
+    def __call__(self, cmd: commands.RegisterLink):
         with self.uow:
             website = self.uow.websites.get(domain=cmd.domain)
             if website is None:
@@ -64,7 +64,7 @@ class BulkCreateLinksHandler:
 EVENT_HANDLERS = {}
 
 COMMAND_HANDLERS = {
-    commands.CreateLink: CreateLinkHandler,
+    commands.RegisterLink: RegisterLinkHandler,
     commands.SoftDeleteLink: SoftDeleteLinkHandler,
     commands.BulkCreateLinks: BulkCreateLinksHandler,
 }

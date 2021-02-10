@@ -35,7 +35,7 @@ def generate_app_factory(bus: message_bus.MessageBus):
                 if isinstance(request.json, list):
                     cmd = commands.BulkCreateLinks(links=request.json)
                 else:
-                    cmd = commands.CreateLink(
+                    cmd = commands.RegisterLink(
                         ref=request.json["ref"],
                         domain=request.json["domain"],
                         path=request.json["path"],

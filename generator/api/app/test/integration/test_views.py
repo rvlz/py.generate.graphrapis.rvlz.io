@@ -20,7 +20,7 @@ def postgres_bus(postgres_session_factory):
 def test_link_views(postgres_bus):
     ref = random_values.generate_ref()
     postgres_bus.handle(
-        commands.CreateLink(
+        commands.RegisterLink(
             ref=ref,
             domain="stackoverflow.com",
             path="kubernetes",
@@ -50,7 +50,7 @@ def test_latest_links_views(postgres_bus, capsys):
     ]
     for link in links:
         postgres_bus.handle(
-            commands.CreateLink(
+            commands.RegisterLink(
                 ref=link["ref"],
                 domain=link["domain"],
                 path=link["path"],

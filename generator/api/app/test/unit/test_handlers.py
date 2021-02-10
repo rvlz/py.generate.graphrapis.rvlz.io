@@ -47,11 +47,11 @@ def message_bus():
     return bootstrap.bootstrap(start_orm=False, uow=FakeUnitOfWork())
 
 
-class TestCreateLinks:
+class TestRegisterLinks:
     def test_for_new_website(self):
         bus = message_bus()
         bus.handle(
-            commands.CreateLink(
+            commands.RegisterLink(
                 ref="ln",
                 domain="stackoverflow.com",
                 path="kubernetes",
@@ -64,7 +64,7 @@ class TestCreateLinks:
     def test_for_existing_website(self):
         bus = message_bus()
         bus.handle(
-            commands.CreateLink(
+            commands.RegisterLink(
                 ref="ln",
                 domain="stackoverflow.com",
                 path="kubernetes",
@@ -72,7 +72,7 @@ class TestCreateLinks:
             )
         )
         bus.handle(
-            commands.CreateLink(
+            commands.RegisterLink(
                 ref="ln1",
                 domain="stackoverflow.com",
                 path="docker",
@@ -114,7 +114,7 @@ class TestSoftDeleteLink:
     def test_soft_delete_link(self):
         bus = message_bus()
         bus.handle(
-            commands.CreateLink(
+            commands.RegisterLink(
                 ref="ln",
                 domain="stackoverflow.com",
                 path="kubernetes",
