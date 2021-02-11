@@ -86,6 +86,19 @@ class TestRegisterLinks:
             bus.uow.websites.get("stackoverflow.com").find("ln1") is not None
         )
 
+    def test_register_link(self):
+        bus = message_bus()
+        bus.handle(
+            commands.RegisterLink(
+                ref="ln",
+                domain="stackoverflow.com",
+                path="kubernetes",
+                title="Intro to Kubernetes",
+                active=True,
+            )
+        )
+        assert bus.uow.websites.get("stackoverflow.com").find("ln") is not None
+
     def test_bulk_register_links(self):
         bus = message_bus()
         bus.handle(
