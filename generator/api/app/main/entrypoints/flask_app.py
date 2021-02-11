@@ -40,6 +40,7 @@ def generate_app_factory(bus: message_bus.MessageBus):
                         domain=request.json["domain"],
                         path=request.json["path"],
                         title=request.json["title"],
+                        active=request.json["active"],
                     )
                 g.bus.handle(cmd)
             except errors.DuplicateFieldError as exc:
