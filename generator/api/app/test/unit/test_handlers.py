@@ -93,14 +93,14 @@ class TestRegisterLinks:
                         "domain": "stackoverflow.com",
                         "path": "kubernetes",
                         "title": "Intro to Kubernetes",
-                        "deleted": False,
+                        "active": True,
                     },
                     {
                         "ref": "ln1",
                         "domain": "wikipedia.org",
                         "path": "docker",
                         "title": "Docker",
-                        "deleted": False,
+                        "active": True,
                     },
                 ]
             )
@@ -122,8 +122,8 @@ class TestDeregisterLink:
             )
         )
         link = bus.uow.websites.get("stackoverflow.com").find("ln")
-        assert not link.deleted
+        assert link.active
         bus.uow.committed = False
         bus.handle(commands.DeregisterLink(ref="ln"))
-        assert link.deleted
+        assert not link.active
         assert bus.uow.committed

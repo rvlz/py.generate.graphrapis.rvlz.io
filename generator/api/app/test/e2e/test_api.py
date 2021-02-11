@@ -65,7 +65,7 @@ def test_happy_path_returns_200_and_latest_links_retrieved():
             "domain": random_values.generate_domain(),
             "path": random_values.generate_path(),
             "title": random_values.generate_title(),
-            "deleted": False,
+            "active": True,
         }
         for _ in range(4)
     ]
@@ -94,7 +94,7 @@ def test_happy_path_returns_201_and_bulk_create_links():
             "domain": random_values.generate_domain(),
             "path": random_values.generate_path(),
             "title": random_values.generate_title(),
-            "deleted": False,
+            "active": True,
         }
         for _ in range(3)
     ]

@@ -5,7 +5,7 @@ def link(ref: str, uow: unit_of_work.SqlAlchemyUnitOfWork):
     with uow:
         results = list(
             uow.session.execute(
-                "SELECT ref, domain, path, title, deleted FROM link "
+                "SELECT ref, domain, path, title, active FROM link "
                 "WHERE ref = :ref",
                 dict(ref=ref),
             )
@@ -19,7 +19,7 @@ def latest_links(limit: int, uow: unit_of_work.SqlAlchemyUnitOfWork):
     with uow:
         results = list(
             uow.session.execute(
-                "SELECT ref, domain, path, title, deleted FROM link WHERE "
+                "SELECT ref, domain, path, title, active FROM link WHERE "
                 "created_at IS NOT NULL ORDER BY created_at DESC LIMIT "
                 ":limit",
                 dict(limit=limit),

@@ -7,7 +7,7 @@ class LinkType(TypedDict):
     domain: str
     path: str
     title: str
-    deleted: bool
+    active: bool
 
 
 class Command:

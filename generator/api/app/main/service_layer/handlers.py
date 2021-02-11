@@ -34,7 +34,7 @@ class DeregisterLinkHandler:
         with self.uow:
             website = self.uow.websites.get_by_linkref(cmd.ref)
             link = website.find(cmd.ref)
-            link.delete()
+            link.deactivate()
             self.uow.commit()
 
 
@@ -56,7 +56,7 @@ class BulkRegisterLinksHandler:
                             domain=ln["domain"],
                             path=ln["path"],
                             title=ln["title"],
-                            deleted=ln["deleted"],
+                            active=ln["active"],
                         ),
                     ]
                 )

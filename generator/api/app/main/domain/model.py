@@ -8,13 +8,13 @@ class Link:
         domain: str,
         path: str,
         title: str,
-        deleted: bool = False,
+        active: bool = True,
     ):
         self.ref = ref
         self.domain = domain
         self.path = path
         self.title = title
-        self.deleted = deleted
+        self.active = active
 
     def __hash__(self):
         return hash(self.ref)
@@ -24,8 +24,8 @@ class Link:
             return False
         return other.ref == self.ref
 
-    def delete(self):
-        self.deleted = True
+    def deactivate(self):
+        self.active = False
 
 
 class Website:

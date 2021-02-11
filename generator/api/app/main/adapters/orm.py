@@ -40,7 +40,7 @@ link = Table(
     Column("domain", ForeignKey("website.domain")),
     Column("path", Text),
     Column("title", String(255)),
-    Column("deleted", Boolean, default=True),
+    Column("active", Boolean, default=True),
     Column("created_at", DateTime, default=datetime.datetime.utcnow),
 )
 
@@ -52,7 +52,7 @@ link_view = Table(
     Column("domain", String(255)),
     Column("path", Text),
     Column("title", String(255)),
-    Column("deleted", Boolean),
+    Column("active", Boolean),
     Column("created_at", DateTime),
 )
 
