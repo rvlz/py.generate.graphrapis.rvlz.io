@@ -41,7 +41,6 @@ link = Table(
     Column("path", Text),
     Column("title", String(255)),
     Column("active", Boolean, default=True),
-    Column("created_at", DateTime, default=datetime.datetime.utcnow),
 )
 
 
