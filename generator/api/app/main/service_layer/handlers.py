@@ -63,8 +63,29 @@ class BulkRegisterLinksHandler:
             self.uow.commit()
 
 
+class AddLinkToReadModelHandler:
+    def __init__(self, uow: unit_of_work.SqlAlchemyUnitOfWork):
+        self.uow = uow
+
+    def __call__(self, event: events.LinkRegistered):
+        with self.uow:
+            self.uow.session.execute(
+                "INSERT INTO link_view (ref, domain, path, title, active, "
+                "created_at) VALUES (:ref, :domain, :path, :title, :active, "
+                "current_timestamp)",
+                dict(
+                    ref=event.ref,
+                    domain=event.domain,
+                    path=event.path,
+                    title=event.title,
+                    active=event.active,
+                ),
+            )
+            self.uow.commit()
+
+
 EVENT_HANDLERS = {
-    events.LinkRegistered: [],
+    events.LinkRegistered: [AddLinkToReadModelHandler],
 }
 
 COMMAND_HANDLERS = {

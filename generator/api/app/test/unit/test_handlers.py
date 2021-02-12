@@ -33,7 +33,6 @@ class FakeUnitOfWork(unit_of_work.AbstractUnitOfWork):
         self.websites = FakeRepository()
 
     def __enter__(self):
-        self.committed = False
         return super().__enter__()
 
     def commit(self):
