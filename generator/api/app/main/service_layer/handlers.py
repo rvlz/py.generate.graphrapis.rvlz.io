@@ -1,5 +1,5 @@
 from app.main.service_layer import unit_of_work
-from app.main.domain import commands, model
+from app.main.domain import commands, events, model
 
 
 class RegisterLinkHandler:
@@ -63,7 +63,9 @@ class BulkRegisterLinksHandler:
             self.uow.commit()
 
 
-EVENT_HANDLERS = {}
+EVENT_HANDLERS = {
+    events.LinkRegistered: [],
+}
 
 COMMAND_HANDLERS = {
     commands.RegisterLink: RegisterLinkHandler,

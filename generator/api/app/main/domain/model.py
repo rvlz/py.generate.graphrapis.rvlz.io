@@ -1,5 +1,7 @@
 from typing import List
 
+from app.main.domain import events
+
 
 class Link:
     def __init__(
@@ -35,7 +37,17 @@ class Website:
         self.events = []
 
     def register(self, links: List[Link]):
-        self.links = self.links + links
+        self.links += links
+        self.events += [
+            events.LinkRegistered(
+                ref=link.ref,
+                domain=link.domain,
+                path=link.path,
+                title=link.title,
+                active=link.active,
+            )
+            for link in links
+        ]
 
     def registered(self, link: Link):
         return link in self.links

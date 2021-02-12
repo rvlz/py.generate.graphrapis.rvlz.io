@@ -1,4 +1,4 @@
-from app.main.domain import model
+from app.main.domain import model, events
 from app.test import random_values
 
 
@@ -57,3 +57,43 @@ def test_get_link_by_ref():
     )
     website = model.Website(domain=domain, links=[link, other_link])
     assert website.find(link.ref) == link
+
+
+def test_outputs_registration_event():
+    domain = "stackoverflow.com"
+    ref, other_ref = random_values.generate_ref(), random_values.generate_ref()
+    path = "kubernetes"
+    title = "Intro to Kubernetes"
+    website = model.Website(domain=domain)
+    link = model.Link(
+        ref=ref,
+        domain=domain,
+        path=path,
+        title=title,
+        active=True,
+    )
+    other_link = model.Link(
+        ref=other_ref,
+        domain=domain,
+        path=path,
+        title=title,
+        active=False,
+    )
+    website.register([link, other_link])
+    expected_events = {
+        events.LinkRegistered(
+            ref=ref,
+            domain=domain,
+            path=path,
+            title=title,
+            active=True,
+        ),
+        events.LinkRegistered(
+            ref=other_ref,
+            domain=domain,
+            path=path,
+            title=title,
+            active=False,
+        ),
+    }
+    assert set(website.events[-2:]) == expected_events
