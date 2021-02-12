@@ -33,3 +33,11 @@ def get_link(ref: str):
 def get_links(limit: int):
     url = config.get_api_url()
     return requests.get(f"{url}/link?limit={limit}")
+
+
+def update_link(ref: str, updates):
+    url = config.get_api_url()
+    return requests.put(
+        f"{url}/link/{ref}",
+        json=updates,
+    )
