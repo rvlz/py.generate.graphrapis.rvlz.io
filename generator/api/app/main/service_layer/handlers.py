@@ -56,7 +56,6 @@ class BulkRegisterLinksHandler:
                             domain=ln["domain"],
                             path=ln["path"],
                             title=ln["title"],
-                            active=ln["active"],
                         ),
                     ]
                 )

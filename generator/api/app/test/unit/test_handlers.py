@@ -104,14 +104,12 @@ class TestRegisterLinks:
                         "domain": "stackoverflow.com",
                         "path": "kubernetes",
                         "title": "Intro to Kubernetes",
-                        "active": True,
                     },
                     {
                         "ref": "ln1",
                         "domain": "wikipedia.org",
                         "path": "docker",
                         "title": "Docker",
-                        "active": True,
                     },
                 ]
             )
