@@ -58,6 +58,11 @@ def generate_app_factory(bus: message_bus.MessageBus):
                 )
             return "OK", 201
 
+        @app.route("/link/<ref>", methods=["DELETE"])
+        def _delete_link(ref):
+            g.bus.handle(commands.DeactivateLink(ref=ref))
+            return "", 204
+
         return app
 
     return create_app

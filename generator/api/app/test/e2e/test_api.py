@@ -112,3 +112,21 @@ def test_link_not_found_returns_404():
     ref = random_values.generate_ref()
     response = api_client.get_link(ref=ref)
     assert response.status_code == 404
+
+
+def test_happy_path_returns_204_and_deletes_link():
+    ref = random_values.generate_ref()
+    response = api_client.create_link(
+        ref=ref,
+        domain=random_values.generate_domain(),
+        path=random_values.generate_path(),
+        title=random_values.generate_title(),
+    )
+
+    assert response.status_code == 201
+
+    response = api_client.delete_link(ref=ref)
+    assert response.status_code == 204
+
+    response = api_client.get_link(ref=ref)
+    assert response.status_code == 404
