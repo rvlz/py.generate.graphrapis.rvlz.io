@@ -19,6 +19,7 @@ class RegisterLinkHandler:
                         domain=cmd.domain,
                         path=cmd.path,
                         title=cmd.title,
+                        active=cmd.active,
                     ),
                 ]
             )
