@@ -84,34 +84,6 @@ class AddLinkToReadModelHandler:
             self.uow.commit()
 
 
-class UpdateLinkHandler:
-    def __init__(self, uow):
-        self.uow = uow
-        self.fields = ["domain", "path", "title", "active"]
-
-    def update_link(self, link: model.Link, cmd: commands.UpdateLink):
-        for field in self.fields:
-            value = getattr(cmd, field)
-            if value is not None:
-                setattr(link, field, value)
-
-    def __call__(self, cmd: commands.UpdateLink):
-        with self.uow:
-            website = self.uow.websites.get_by_linkref(cmd.ref)
-            if cmd.domain is not None and website.domain != cmd.domain:
-                link = website.remove(cmd.ref)
-                self.update_link(link, cmd)
-                new_website = self.uow.websites.get(cmd.domain)
-                if new_website is None:
-                    new_website = model.Website(domain=cmd.domain)
-                new_website.register([link])
-                self.uow.websites.add(new_website)
-            else:
-                link = website.find(cmd.ref)
-                self.update_link(link, cmd)
-            self.uow.commit()
-
-
 EVENT_HANDLERS = {
     events.LinkRegistered: [AddLinkToReadModelHandler],
 }
@@ -120,5 +92,4 @@ COMMAND_HANDLERS = {
     commands.RegisterLink: RegisterLinkHandler,
     commands.DeactivateLink: DeactivateLinkHandler,
     commands.BulkRegisterLinks: BulkRegisterLinksHandler,
-    commands.UpdateLink: UpdateLinkHandler,
 }

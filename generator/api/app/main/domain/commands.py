@@ -1,4 +1,4 @@
-from typing import List, TypedDict, Optional
+from typing import List, TypedDict
 from dataclasses import dataclass
 
 
@@ -31,12 +31,3 @@ class DeactivateLink(Command):
 @dataclass(frozen=True)
 class BulkRegisterLinks(Command):
     links: List[LinkType]
-
-
-@dataclass(frozen=True)
-class UpdateLink(Command):
-    ref: str
-    domain: Optional[str]
-    path: Optional[str]
-    title: Optional[str]
-    active: Optional[str]

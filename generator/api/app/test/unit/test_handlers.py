@@ -2,7 +2,6 @@ from app.main import bootstrap
 from app.main.adapters import repository
 from app.main.service_layer import unit_of_work
 from app.main.domain import model, commands
-from app.test import random_values
 
 
 class FakeRepository(repository.AbstractRepository):
@@ -144,97 +143,3 @@ class TestDeactivateLink:
         bus.handle(commands.DeactivateLink(ref="ln"))
         assert not link.active
         assert bus.uow.committed
-
-
-class TestLinkUpdate:
-    def test_update_all_attr_with_no_domain_change(self):
-        ref = random_values.generate_ref()
-        bus = message_bus()
-        bus.handle(
-            commands.RegisterLink(
-                ref=ref,
-                domain="stackoverflow.com",
-                path="kubernetes",
-                title="Intro to Kubernetes",
-                active=True,
-            )
-        )
-        assert bus.uow.websites.get("stackoverflow.com").find(ref) is not None
-        bus.handle(
-            commands.UpdateLink(
-                ref=ref,
-                domain=None,
-                path="docker",
-                title="Docker",
-                active=False,
-            )
-        )
-        link = bus.uow.websites.get("stackoverflow.com").find(ref)
-        assert link is not None
-        assert link.ref == ref
-        assert link.domain == "stackoverflow.com"
-        assert link.path == "docker"
-        assert link.title == "Docker"
-        assert not link.active
-
-    def test_update_only_domain(self):
-        ref = random_values.generate_ref()
-        bus = message_bus()
-        bus.handle(
-            commands.RegisterLink(
-                ref=ref,
-                domain="stackoverflow.com",
-                path="kubernetes",
-                title="Intro to Kubernetes",
-                active=True,
-            )
-        )
-        assert bus.uow.websites.get("stackoverflow.com").find(ref) is not None
-        bus.handle(
-            commands.UpdateLink(
-                ref=ref,
-                domain="wikipedia.org",
-                path=None,
-                title=None,
-                active=None,
-            )
-        )
-        bus.uow.websites.get("stackoverflow.com").find(ref) is None
-        link = bus.uow.websites.get("wikipedia.org").find(ref)
-        assert link is not None
-        assert link.ref == ref
-        assert link.domain == "wikipedia.org"
-        assert link.path == "kubernetes"
-        assert link.title == "Intro to Kubernetes"
-        assert link.active
-
-    def test_update_all_attributes(self):
-        ref = random_values.generate_ref()
-        bus = message_bus()
-        bus.handle(
-            commands.RegisterLink(
-                ref=ref,
-                domain="stackoverflow.com",
-                path="kubernetes",
-                title="Intro to Kubernetes",
-                active=True,
-            )
-        )
-        assert bus.uow.websites.get("stackoverflow.com").find(ref) is not None
-        bus.handle(
-            commands.UpdateLink(
-                ref=ref,
-                domain="wikipedia.org",
-                path="docker",
-                title="Docker",
-                active=False,
-            )
-        )
-        bus.uow.websites.get("stackoverflow.com").find(ref) is None
-        link = bus.uow.websites.get("wikipedia.org").find(ref)
-        assert link is not None
-        assert link.ref == ref
-        assert link.domain == "wikipedia.org"
-        assert link.path == "docker"
-        assert link.title == "Docker"
-        assert not link.active
