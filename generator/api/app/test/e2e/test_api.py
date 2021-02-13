@@ -151,7 +151,7 @@ def test_happy_path_returns_202_and_link_updated():
         ref,
         updates={
             "domain": other_domain,
-            "path": other_domain,
+            "path": other_path,
             "title": other_title,
             "active": False,
         },
