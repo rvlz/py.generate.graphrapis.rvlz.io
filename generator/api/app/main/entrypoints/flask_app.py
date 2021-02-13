@@ -20,6 +20,8 @@ def generate_app_factory(bus: message_bus.MessageBus):
         @app.route("/link/<ref>", methods=["GET"])
         def _get_link(ref):
             result = views.link(ref, g.bus.uow)
+            if not result:
+                return "", 404
             return jsonify(result), 200
 
         @app.route("/link", methods=["GET"])

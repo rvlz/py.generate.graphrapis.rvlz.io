@@ -106,3 +106,9 @@ def test_happy_path_returns_201_and_bulk_create_links():
     assert links[0] in results
     assert links[1] in results
     assert links[2] in results
+
+
+def test_link_not_found_returns_404():
+    ref = random_values.generate_ref()
+    response = api_client.get_link(ref=ref)
+    assert response.status_code == 404

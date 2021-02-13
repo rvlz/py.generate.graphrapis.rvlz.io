@@ -40,3 +40,8 @@ def update_link(ref: str, updates):
         f"{url}/link/{ref}",
         json=updates,
     )
+
+
+def delete_link(ref: str):
+    url = config.get_api_url()
+    return requests.delete(f"{url}/link/{ref}")
