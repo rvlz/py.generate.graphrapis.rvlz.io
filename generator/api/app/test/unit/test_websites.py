@@ -59,6 +59,21 @@ def test_get_link_by_ref():
     assert website.find(link.ref) == link
 
 
+def test_get_link_doesnt_find_links_with_none_domain():
+    domain = random_values.generate_domain()
+    ref = random_values.generate_ref()
+    link = model.Link(
+        ref=ref,
+        domain="stackoverflow.com",
+        path="kubernetes",
+        title="Intro to Kubernetes",
+    )
+    website = model.Website(domain=domain, links=[link])
+    assert website.find(ref) == link
+    link.domain = None
+    assert website.find(ref) is None
+
+
 def test_outputs_registration_event():
     domain = "stackoverflow.com"
     ref, other_ref = random_values.generate_ref(), random_values.generate_ref()

@@ -57,7 +57,11 @@ class Website:
 
     def find(self, linkref: str):
         return next(
-            (link for link in self.links if link.ref == linkref),
+            (
+                link
+                for link in self.links
+                if link.domain is not None and link.ref == linkref
+            ),
             None,
         )
 
