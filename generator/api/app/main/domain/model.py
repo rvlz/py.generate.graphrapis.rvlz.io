@@ -64,9 +64,3 @@ class Website:
             ),
             None,
         )
-
-    def remove(self, linkref: str):
-        for link in self.links:
-            if link.ref == linkref:
-                link.domain = None
-                return link
