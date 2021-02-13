@@ -124,12 +124,3 @@ def generate_link():
         active=True,
     )
     return ref, link
-
-
-def test_remove_registered_link():
-    ref, link = generate_link()
-    website = model.Website(domain=link.domain)
-    website.register([link])
-    assert website.find(ref) is not None
-    website.remove(ref)
-    assert website.find(ref) is None
