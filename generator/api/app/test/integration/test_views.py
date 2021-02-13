@@ -25,7 +25,6 @@ def test_link_views(postgres_bus):
             domain="stackoverflow.com",
             path="kubernetes",
             title="Intro to Kubernetes",
-            active=True,
         )
     )
 
@@ -34,7 +33,6 @@ def test_link_views(postgres_bus):
         "domain": "stackoverflow.com",
         "path": "kubernetes",
         "title": "Intro to Kubernetes",
-        "active": True,
     }
 
 
@@ -45,7 +43,6 @@ def test_latest_links_views(postgres_bus, capsys):
             "domain": random_values.generate_domain(),
             "path": random_values.generate_path(),
             "title": random_values.generate_title(),
-            "active": True,
         }
         for _ in range(4)
     ]
@@ -56,7 +53,6 @@ def test_latest_links_views(postgres_bus, capsys):
                 domain=link["domain"],
                 path=link["path"],
                 title=link["title"],
-                active=link["active"],
             )
         )
 
