@@ -64,3 +64,7 @@ class Website:
             ),
             None,
         )
+
+    def deactivate(self, linkref: str):
+        link = self.find(linkref)
+        link.deactivate()

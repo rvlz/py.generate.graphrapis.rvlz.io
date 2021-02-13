@@ -114,6 +114,25 @@ def test_outputs_registration_event():
     assert set(website.events[-2:]) == expected_events
 
 
+def test_deactivation():
+    ref = random_values.generate_ref()
+    domain = random_values.generate_domain()
+    path = random_values.generate_path()
+    title = random_values.generate_title()
+    link = model.Link(
+        ref=ref,
+        domain=domain,
+        path=path,
+        title=title,
+    )
+    website = model.Website(domain=domain)
+    website.register([link])
+    assert website.find(ref) is not None
+    website.deactivate(ref)
+    assert website.find(ref) is None
+    assert not link.active
+
+
 def generate_link():
     ref = random_values.generate_ref()
     link = model.Link(
