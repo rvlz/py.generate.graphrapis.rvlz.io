@@ -24,7 +24,7 @@ class RegisterLink(Command):
 
 
 @dataclass(frozen=True)
-class DeregisterLink(Command):
+class DeactivateLink(Command):
     ref: str
 
 
