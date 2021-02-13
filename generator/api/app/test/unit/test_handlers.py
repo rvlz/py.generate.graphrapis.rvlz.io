@@ -55,7 +55,6 @@ class TestRegisterLinks:
                 domain="stackoverflow.com",
                 path="kubernetes",
                 title="Intro to Kubernetes",
-                active=True,
             )
         )
         assert bus.uow.websites.get("stackoverflow.com") is not None
@@ -69,7 +68,6 @@ class TestRegisterLinks:
                 domain="stackoverflow.com",
                 path="kubernetes",
                 title="Intro to Kubernetes",
-                active=True,
             )
         )
         bus.handle(
@@ -78,7 +76,6 @@ class TestRegisterLinks:
                 domain="stackoverflow.com",
                 path="docker",
                 title="Intro to Docker",
-                active=True,
             )
         )
         assert (
@@ -93,7 +90,6 @@ class TestRegisterLinks:
                 domain="stackoverflow.com",
                 path="kubernetes",
                 title="Intro to Kubernetes",
-                active=True,
             )
         )
         assert bus.uow.websites.get("stackoverflow.com").find("ln") is not None
@@ -134,7 +130,6 @@ class TestDeactivateLink:
                 domain="stackoverflow.com",
                 path="kubernetes",
                 title="Intro to Kubernetes",
-                active=True,
             )
         )
         link = bus.uow.websites.get("stackoverflow.com").find("ln")

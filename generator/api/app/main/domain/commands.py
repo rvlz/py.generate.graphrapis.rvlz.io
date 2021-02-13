@@ -20,7 +20,7 @@ class RegisterLink(Command):
     domain: str
     path: str
     title: str
-    active: bool
+    active: bool = True
 
 
 @dataclass(frozen=True)
