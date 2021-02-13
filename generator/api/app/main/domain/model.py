@@ -60,3 +60,8 @@ class Website:
             (link for link in self.links if link.ref == linkref),
             None,
         )
+
+    def remove(self, linkref: str):
+        for link in self.links:
+            if link.ref == linkref:
+                return self.links.remove(link)
