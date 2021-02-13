@@ -59,7 +59,7 @@ def test_get_link_by_ref():
     assert website.find(link.ref) == link
 
 
-def test_get_link_doesnt_find_links_with_none_domain():
+def test_get_link_doesnt_find_deactivated_links():
     domain = random_values.generate_domain()
     ref = random_values.generate_ref()
     link = model.Link(
@@ -70,7 +70,7 @@ def test_get_link_doesnt_find_links_with_none_domain():
     )
     website = model.Website(domain=domain, links=[link])
     assert website.find(ref) == link
-    link.domain = None
+    link.deactivate()
     assert website.find(ref) is None
 
 

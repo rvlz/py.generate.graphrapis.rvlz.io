@@ -60,7 +60,7 @@ class Website:
             (
                 link
                 for link in self.links
-                if link.domain is not None and link.ref == linkref
+                if link.active and link.ref == linkref
             ),
             None,
         )
