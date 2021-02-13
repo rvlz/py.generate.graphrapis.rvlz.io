@@ -12,3 +12,8 @@ class LinkRegistered(Event):
     path: str
     title: str
     active: bool
+
+
+@dataclass(frozen=True)
+class LinkDeactivated(Event):
+    ref: str

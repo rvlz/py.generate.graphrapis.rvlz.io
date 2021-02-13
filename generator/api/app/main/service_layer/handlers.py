@@ -34,8 +34,7 @@ class DeactivateLinkHandler:
     def __call__(self, cmd: commands.DeactivateLink):
         with self.uow:
             website = self.uow.websites.get_by_linkref(cmd.ref)
-            link = website.find(cmd.ref)
-            link.deactivate()
+            website.deactivate(cmd.ref)
             self.uow.commit()
 
 
@@ -84,8 +83,22 @@ class AddLinkToReadModelHandler:
             self.uow.commit()
 
 
+class DeactivateLinkInReadModelHandler:
+    def __init__(self, uow: unit_of_work.SqlAlchemyUnitOfWork):
+        self.uow = uow
+
+    def __call__(self, event: events.LinkDeactivated):
+        with self.uow:
+            self.uow.session.execute(
+                "UPDATE link_view SET active = FALSE WHERE ref = :ref",
+                dict(ref=event.ref),
+            )
+            self.uow.commit()
+
+
 EVENT_HANDLERS = {
     events.LinkRegistered: [AddLinkToReadModelHandler],
+    events.LinkDeactivated: [DeactivateLinkInReadModelHandler],
 }
 
 COMMAND_HANDLERS = {
