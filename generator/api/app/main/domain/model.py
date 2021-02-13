@@ -68,3 +68,4 @@ class Website:
     def deactivate(self, linkref: str):
         link = self.find(linkref)
         link.deactivate()
+        self.events.append(events.LinkDeactivated(ref=linkref))

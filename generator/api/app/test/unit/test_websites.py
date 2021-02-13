@@ -133,6 +133,23 @@ def test_deactivation():
     assert not link.active
 
 
+def test_outputs_deactivation_event():
+    ref = random_values.generate_ref()
+    domain = random_values.generate_domain()
+    path = random_values.generate_path()
+    title = random_values.generate_title()
+    link = model.Link(
+        ref=ref,
+        domain=domain,
+        path=path,
+        title=title,
+    )
+    website = model.Website(domain=domain)
+    website.register([link])
+    website.deactivate(ref)
+    assert website.events[-1] == events.LinkDeactivated(ref=ref)
+
+
 def generate_link():
     ref = random_values.generate_ref()
     link = model.Link(
