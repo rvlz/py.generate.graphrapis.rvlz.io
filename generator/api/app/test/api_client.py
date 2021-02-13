@@ -3,7 +3,7 @@ import requests
 from app.test import config
 
 
-def create_link(ref: str, domain: str, path: str, title: str, active: bool):
+def create_link(ref: str, domain: str, path: str, title: str):
     base_url = config.get_api_url()
     return requests.post(
         f"{base_url}/link",
@@ -12,7 +12,6 @@ def create_link(ref: str, domain: str, path: str, title: str, active: bool):
             "domain": domain,
             "path": path,
             "title": title,
-            "active": active,
         },
     )
 

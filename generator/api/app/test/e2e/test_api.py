@@ -12,7 +12,6 @@ def test_happy_path_returns_201_and_link_created():
         domain=domain,
         path=path,
         title=title,
-        active=True,
     )
 
     assert response.status_code == 201
@@ -43,7 +42,6 @@ def test_duplicate_refs_returns_403_and_link_not_created():
         domain=domain,
         path=path,
         title=title,
-        active=True,
     )
 
     assert response.status_code == 201
@@ -53,7 +51,6 @@ def test_duplicate_refs_returns_403_and_link_not_created():
         domain=domain,
         path=other_path,
         title=other_title,
-        active=True,
     )
 
     assert response.status_code == 403
@@ -68,7 +65,6 @@ def test_happy_path_returns_200_and_latest_links_retrieved():
             "domain": random_values.generate_domain(),
             "path": random_values.generate_path(),
             "title": random_values.generate_title(),
-            "active": True,
         }
         for _ in range(4)
     ]
@@ -78,7 +74,6 @@ def test_happy_path_returns_200_and_latest_links_retrieved():
             domain=link["domain"],
             path=link["path"],
             title=link["title"],
-            active=link["active"],
         )
 
     response = api_client.get_links(limit=3)
@@ -98,7 +93,6 @@ def test_happy_path_returns_201_and_bulk_create_links():
             "domain": random_values.generate_domain(),
             "path": random_values.generate_path(),
             "title": random_values.generate_title(),
-            "active": True,
         }
         for _ in range(3)
     ]
