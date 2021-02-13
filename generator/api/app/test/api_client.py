@@ -37,7 +37,7 @@ def get_links(limit: int):
 
 def update_link(ref: str, updates):
     url = config.get_api_url()
-    return requests.put(
+    return requests.patch(
         f"{url}/link/{ref}",
         json=updates,
     )
